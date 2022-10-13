@@ -46,6 +46,11 @@ public readonly unsafe struct Iterator
         return id == compId.Handle;
     }
 
+    public bool QueryNext()
+    {
+        return ecs_query_next(Handle);
+    }
+    
     public Table Table()
     {
         return new Table(Handle->world, Handle->table);

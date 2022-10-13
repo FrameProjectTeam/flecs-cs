@@ -147,6 +147,24 @@ public unsafe class World
         ecs_system_init(Handle, &desc);
     }
 
+    public Query Query(string filterExpression)
+    {
+        ecs_query_desc_t desc = default;
+        desc.filter.expr = filterExpression;
+        ecs_query_t* query = ecs_query_init(Handle, &desc);
+
+        return new Query(this, query);
+    }
+
+    public Filter Filter(string filterExpression)
+    {
+        ecs_filter_desc_t desc = default;
+        desc.expr = filterExpression;
+        ecs_filter_t* filter = ecs_filter_init(Handle, &desc);
+
+        return new Filter(this, filter);
+    }
+    
     private void FillSystemDescriptorCommon(
         ref ecs_system_desc_t systemDesc, CallbackIterator callback, ecs_entity_t phase, string? name)
     {
